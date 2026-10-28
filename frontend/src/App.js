@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'; 
 import { useEffect, useState } from 'react'; 
+import styles from "./App.module.css"; 
 
 export default function App() {
   const [ text, setText ] = useState(''); 
@@ -76,29 +77,34 @@ export default function App() {
   }
 
   return (
-    <div>
-      <h1>ToDo List</h1>
-      <div>
+    <div className={styles.container}>
+      <h1 className={styles.appHeader}>ToDo List</h1>
+      <div className={styles.inputContainer}>
         <input type="text"  
         onChange={(e) => {
           setText(e.target.value) 
         }} 
         value={text} 
-        placeholder="Enter your todo"/>
-        <input type="button" value="Add" onClick={handleAdd} />
+        placeholder="Enter your todo" 
+        className={styles.inputBox}
+        />
+        <input type="button" value="Add" onClick={handleAdd} 
+        className={styles.addButton}
+        />
       </div>
-      <div>
+      <div className={styles.outerToDoList}>
         {
          toDoList.map((item) => {
           return (
-            <div key={item.id}>
+            <div key={item.id} className={styles.toDoList}>
               <input 
               type="checkbox" 
               checked={item.completed} 
               onChange={() => handleToggle(item.id)}
+              className={styles.checkBox}
               />
-              <p>{item.text}</p> 
-              <input type="button" value="X" onClick={() => handleDelete(item.id)} />
+              <p className={item.completed ? styles.completed: styles.center }>{item.text}</p> 
+              <input type="button" value="X" onClick={() => handleDelete(item.id)} className={styles.removeButton}/>
             </div>
           )
          })
